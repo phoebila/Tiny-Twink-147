@@ -7,7 +7,7 @@ class Title extends Phaser.Scene {
 
     create(){
 
-        // this.scene.start("characterScene"
-        this.scene.start("playScene")
+        this.scene.start("characterScene")
+        // this.scene.start("playScene")
     }
 }
