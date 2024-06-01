@@ -14,7 +14,9 @@ class Load extends Phaser.Scene {
 
         //load character assets
         //load ui thingies
-        this.load.image('arrows', 'menuArrows.png')
+        this.load.image('Larrow', 'leftMenuArrow.png')
+        this.load.image('Rarrow', 'rightMenuArrow.png')
+
     }
 
     create() {
