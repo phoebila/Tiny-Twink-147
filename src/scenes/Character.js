@@ -43,8 +43,9 @@ class Character extends Phaser.Scene {
             console.log('right hair');
         })
 
-        // add pointer funcs 
-
+        // add text images for the ui buttons
+        
+        // add little guy image 
         
 
 
@@ -53,6 +54,7 @@ class Character extends Phaser.Scene {
 
     update(){
         // update the character image based on selection
+        // save character selection
         // random button
         // then play button
     }
