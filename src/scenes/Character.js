@@ -22,6 +22,8 @@ class Character extends Phaser.Scene {
             console.log('right skin');
         })
 
+        this.skinText = this.add.image(190, 50, "skin").setScale(.2)
+
         // clothes
         this.LbuttonCl = this.add.image(250, 90, 'Larrow').setInteractive().setScale(.8)
         // add pointer input
@@ -33,6 +35,9 @@ class Character extends Phaser.Scene {
             console.log('right clothes');
         })
 
+        this.clothesText = this.add.image(190, 90, "clothes").setScale(.2)
+
+
         // hair
         this.LbuttonH = this.add.image(250, 130, 'Larrow').setInteractive().setScale(.8)
         this.LbuttonH.on('pointerdown', (pointer) => {
@@ -43,12 +48,13 @@ class Character extends Phaser.Scene {
             console.log('right hair');
         })
 
+        this.hairText = this.add.image(210, 130, "hair").setScale(.2)
+
+
         // add text images for the ui buttons
         
         // add little guy image 
         
-
-
     // this.scene.start("playScene")
     }
 

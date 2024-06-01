@@ -17,6 +17,13 @@ class Load extends Phaser.Scene {
         this.load.image('Larrow', 'leftMenuArrow.png')
         this.load.image('Rarrow', 'rightMenuArrow.png')
 
+        // loading ui text
+        this.load.image('clothes', 'clothestext.png')
+        this.load.image('hair', 'hairtext.png')
+        this.load.image('skin', 'skinTonetext.png')
+
+
+
     }
 
     create() {
