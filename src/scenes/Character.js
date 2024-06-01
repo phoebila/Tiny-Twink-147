@@ -7,9 +7,10 @@ class Character extends Phaser.Scene {
     create(){
         this.map = this.add.image(0, 0, 'map').setOrigin(0)
 
-
         // add arrows 
         // add buttons
+        this.buttons = this.add.image(150,150, 'arrows')
+        
     // this.scene.start("playScene")
     }
 
