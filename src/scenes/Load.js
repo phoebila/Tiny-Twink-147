@@ -11,6 +11,9 @@ class Load extends Phaser.Scene {
             frameHeight: 32,
         })
         this.load.image('map', 'map-scroll.jpg')
+
+        //load character assets
+        //load ui thingies
     }
 
     create() {

@@ -4,7 +4,9 @@ class Character extends Phaser.Scene {
     }
 
     // create
-
+    create(){
 
     // this.scene.start("playScene")
+    }
+
 }
