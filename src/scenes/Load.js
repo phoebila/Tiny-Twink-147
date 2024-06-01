@@ -22,6 +22,10 @@ class Load extends Phaser.Scene {
         this.load.image('hair', 'hairtext.png')
         this.load.image('skin', 'skinTonetext.png')
 
+        // play button --> title
+        this.load.image("start", "startButton.png")
+        this.load.image("title", "TitleScreen.png")
+
 
 
     }
