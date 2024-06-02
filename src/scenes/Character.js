@@ -55,7 +55,13 @@ class Character extends Phaser.Scene {
         
         // add little guy image 
         
-    // this.scene.start("playScene")
+        
+        // play button
+        this.playButton = this.add.image(875, 550, 'play').setInteractive()
+        this.playButton.on('pointerdown', (pointer) => {
+            this.scene.start("playScene")
+        })
+
     }
 
     update(){
