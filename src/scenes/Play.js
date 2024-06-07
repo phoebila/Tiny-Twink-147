@@ -4,6 +4,39 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+        this.loaded = false
+        // Create the dungeon matrix 
+        // Dung is short for dungeon!
+        let dung = new Dungeon(15,15,8, 0, 20)
+        dung.printMatrix()
+
+
+        // Place the matrix into the world
+
+        // Loop through each room of the dungeon
+        // Place the room at the respective coordinates 
+
+        // These are some of the important sizes for placing the rooms
+        // all of them are measured in pixels
+        let tileSize = 20
+        let roomHeight = 220
+        let roomWidth = 320
+        // These measure the thickness of the walls
+        let wThick = 40
+
+
+
+        for (let x = 0; x < dung.width; x++){
+            for (let y = 0; y < dung.height; y++){
+                if ( ! dung.matrix[x][y] === null){
+                    //
+                }
+            }
+        }
+
+
+
+
         // add background image
         this.map = this.add.image(0, 0, 'map').setOrigin(0)
 
