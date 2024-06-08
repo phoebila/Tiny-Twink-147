@@ -143,11 +143,11 @@ class Dungeon {
                 this.matrix[x2][y2].neighbors[3] = true;
                 this.matrix[x1][y1].neighbors[2] = true;
             } else if (y1 === y2 + 1 && x1 === x2) { // if 1 is south of 2
-                this.matrix[x2][y2].neighbors[1] = true;
-                this.matrix[x1][y1].neighbors[0] = true;
-            } else if (y1 === y2 - 1 && x1 === x2) { // if 1 is north of 2 
                 this.matrix[x2][y2].neighbors[0] = true;
                 this.matrix[x1][y1].neighbors[1] = true;
+            } else if (y1 === y2 - 1 && x1 === x2) { // if 1 is north of 2 
+                this.matrix[x2][y2].neighbors[1] = true;
+                this.matrix[x1][y1].neighbors[0] = true;
             } else { // They cannot be neighbors
                 return false;
             }

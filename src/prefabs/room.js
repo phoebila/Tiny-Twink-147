@@ -6,7 +6,7 @@ class Room  {
         this.roomNum = roomNum
         this.depth = depth
         this.roomType = 1
-        if (roomNum == 0) { //starting room
+        if (roomNum == 1) { //starting room
             this.roomType =0
         } else if (roomNum == Math.floor(dungeon.maxRooms/ 2)) { // 
             this.roomType =5
