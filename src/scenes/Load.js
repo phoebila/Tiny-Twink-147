@@ -41,6 +41,7 @@ class Load extends Phaser.Scene {
         //load ui thingies
         this.load.image('Larrow', 'leftMenuArrow.png')
         this.load.image('Rarrow', 'rightMenuArrow.png')
+        this.load.image('randoButton', 'randomizeButton.png')
 
         // loading ui text
         this.load.image('clothes', 'clothestext.png')

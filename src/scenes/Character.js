@@ -37,7 +37,7 @@ class Character extends Phaser.Scene {
         
         
         // play button
-        this.playButton = this.add.image(875, 550, 'play').setInteractive()
+        this.playButton = this.add.image(875, 610, 'play').setInteractive()
         this.playButton.on('pointerdown', (pointer) => {
             this.scene.start("playScene")
         })
@@ -59,6 +59,12 @@ class Character extends Phaser.Scene {
         this.LbuttonH.on('pointerdown', () => this.changePart('hair', -1));
         this.RbuttonH = this.add.image(650, 275, "Rarrow").setInteractive().setScale(3);
         this.RbuttonH.on('pointerdown', () => this.changePart('hair', 1));
+
+        // Randomize button
+        this.randoButton = this.add.image(875, 525, 'randoButton').setInteractive().setScale(.8)
+        this.randoButton.on('pointerdown', (pointer) => {
+            this.randomizeCharacter()
+        })
 
     }
 
@@ -88,20 +94,34 @@ class Character extends Phaser.Scene {
     
     // Function to update character parts without container
     updateCharacterPart(part, texture) {
-
         if (part === 'skin') {
-            let skinPart = this.add.image(890, 315, texture).setScale(17);
+            // Destroy the current skin image if it exists
+            if (this.skin) {
+                this.skin.destroy();
+            }
+            // Add the new skin image
+            this.skin = this.add.image(890, 315, texture).setScale(17);
         } else if (part === 'clothes') {
-            let shirtPart = this.add.image(890, 355, texture).setScale(15);
+            // Destroy the current clothes image if it exists
+            if (this.clothes) {
+                this.clothes.destroy();
+            }
+            // Add the new clothes image
+            this.clothes = this.add.image(890, 355, texture).setScale(15);
         } else if (part === 'hair') {
-            let hairPart = this.add.image(875, 225, texture).setScale(15);
+            // Destroy the current hair image if it exists
+            if (this.hair) {
+                this.hair.destroy();
+            }
+            // Add the new hair image
+            this.hair = this.add.image(875, 225, texture).setScale(15);
         }
     }
 
     // Function to randomize character parts
     randomizeCharacter() {
         this.skinIndex = Phaser.Math.Between(0, this.skinOptions.length - 1);
-        this.shirtIndex = Phaser.Math.Between(0, this.clothesOptions.length - 1);
+        this.shirtIndex = Phaser.Math.Between(0, this.shirtOptions.length - 1);
         this.hairIndex = Phaser.Math.Between(0, this.hairOptions.length - 1);
     
         this.updateCharacterPart('skin', this.skinOptions[this.skinIndex]);
