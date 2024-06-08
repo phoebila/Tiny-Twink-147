@@ -24,11 +24,14 @@ class Load extends Phaser.Scene {
 
         // play button --> character
         this.load.image("play", "playButton.png")
+        this.load.image("heroCharacter", "hero-large.png")
 
         // play button --> title
         this.load.image("start", "startButton.png")
         this.load.image("title", "TitleScreen.png")
 
+        // assets --> character
+        
 
 
     }

@@ -11,49 +11,50 @@ class Character extends Phaser.Scene {
         // add buttons
 
         // skin buttons
-        this.LbuttonS = this.add.image(250, 50, 'Larrow').setInteractive().setScale(1.5)
+        this.LbuttonS = this.add.image(550, 80, 'Larrow').setInteractive().setScale(3)
         // add pointer input
         this.LbuttonS.on('pointerdown', (pointer) => {
             console.log('left skin');
         })
-        this.RbuttonS = this.add.image(350, 50, "Rarrow").setInteractive().setScale(1.5)
+        this.RbuttonS = this.add.image(650, 80, "Rarrow").setInteractive().setScale(3)
         // add pointer input
         this.RbuttonS.on('pointerdown', (pointer) => {
             console.log('right skin');
         })
 
-        this.skinText = this.add.image(170, 50, "skin").setScale(.2)
+        this.skinText = this.add.image(250, 70, "skin").setScale(.8)
 
         // clothes
-        this.LbuttonCl = this.add.image(250, 100, 'Larrow').setInteractive().setScale(1.5)
+        this.LbuttonCl = this.add.image(550, 170, 'Larrow').setInteractive().setScale(3)
         // add pointer input
         this.LbuttonCl.on('pointerdown', (pointer) => {
             console.log('left clothes');
         })
-        this.RbuttonCl = this.add.image(350, 100, "Rarrow").setInteractive().setScale(1.5)
+        this.RbuttonCl = this.add.image(650, 170, "Rarrow").setInteractive().setScale(3)
         this.RbuttonCl.on('pointerdown', (pointer) => {
             console.log('right clothes');
         })
 
-        this.clothesText = this.add.image(180, 100, "clothes").setScale(.2)
+        this.clothesText = this.add.image(250, 170, "clothes").setScale(.8)
 
 
         // hair
-        this.LbuttonH = this.add.image(250, 150, 'Larrow').setInteractive().setScale(1.5)
+        this.LbuttonH = this.add.image(550, 275, 'Larrow').setInteractive().setScale(3)
         this.LbuttonH.on('pointerdown', (pointer) => {
             console.log('left hair');
         })
-        this.RbuttonH = this.add.image(350, 150, "Rarrow").setInteractive().setScale(1.5)
+        this.RbuttonH = this.add.image(650, 275, "Rarrow").setInteractive().setScale(3)
         this.RbuttonH.on('pointerdown', (pointer) => {
             console.log('right hair');
         })
 
-        this.hairText = this.add.image(200, 150, "hair").setScale(.2)
+        this.hairText = this.add.image(250, 275, "hair").setScale(.8)
 
 
         // add text images for the ui buttons
         
         // add little guy image 
+        this.heroLarge = this.add.image(875, 300, "heroCharacter").setScale(15)
         
         
         // play button
