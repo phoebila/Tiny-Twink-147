@@ -6,6 +6,10 @@ class Load extends Phaser.Scene {
     preload() {
         // load the visual goodz
         this.load.path = './assets/'
+
+        
+
+
         this.load.spritesheet('hero', 'hero-sheet.png', {
             frameWidth: 32,
             frameHeight: 32,
@@ -30,8 +34,6 @@ class Load extends Phaser.Scene {
         this.load.image("start", "startButton.png")
         this.load.image("title", "TitleScreen.png")
 
-        // assets --> character
-        
 
 
     }
