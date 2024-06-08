@@ -30,6 +30,7 @@ class Load extends Phaser.Scene {
         this.load.image('orangeTwink', 'orangeTwink.png')
         this.load.image('pinkTwink', 'pinkTwink.png')
         this.load.image('redTwink', 'redTwink.png')
+        this.load.image('blueTwink', 'blueTwink.png')
         // load skin hair
         this.load.image('brownHair', 'brownHair.png')
         this.load.image('blondeHair', 'hairBlonde.png')
