@@ -17,6 +17,26 @@ class Load extends Phaser.Scene {
         this.load.image('map', 'map-scroll.jpg')
 
         //load character assets
+        // load shirts
+        this.load.image('blueShirt', 'blueShirt.png')
+        this.load.image('grayShirt', 'grayShirt.png')
+        this.load.image('greenShirt', 'greenShirt.png')
+        this.load.image('pinkShirt', 'pinkShirt.png')
+        this.load.image('redShirt', 'redShirt.png')
+        this.load.image('yellowShirt', 'yellowShirt.png')
+        // load skin tones
+        this.load.image('grayTwink', 'grayTwink.png')
+        this.load.image('greenTwink', 'greenTwink.png')
+        this.load.image('orangeTwink', 'orangeTwink.png')
+        this.load.image('pinkTwink', 'pinkTwink.png')
+        this.load.image('redTwink', 'redTwink.png')
+        // load skin hair
+        this.load.image('brownHair', 'brownHair.png')
+        this.load.image('blondeHair', 'hairBlonde.png')
+        this.load.image('redHair', 'hairRed.png')
+        this.load.image('pinkHair', 'pinkHair.png')
+
+
         //load ui thingies
         this.load.image('Larrow', 'leftMenuArrow.png')
         this.load.image('Rarrow', 'rightMenuArrow.png')
