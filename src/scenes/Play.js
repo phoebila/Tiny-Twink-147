@@ -130,7 +130,7 @@ class Play extends Phaser.Scene {
         // Start by taking the room type and determing what json file that requires
 
         
-        const map = this.make.tilemap({ key: key })
+        const map = this.make.tilemap({ key: 'Basic' })
         // IM CHEATING TO TEST SOMETHING REMOVE THIS LINE^^^^^ DONT FORGET TO REMOVE IT WHEN ALL OF THE ROOMS END UP LOOKING LIKE A BASIC ROOM
         // The line should be this instead: 
         //  const map = this.make.tilemap({ key: key })
