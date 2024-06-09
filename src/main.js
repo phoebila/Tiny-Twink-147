@@ -32,3 +32,5 @@ let roomHeight = 220
 let roomWidth = 320
 // These measure the thickness of the walls
 let wThick = 40
+let nsDoorWidth = 27
+let ewDoorWidth = 24

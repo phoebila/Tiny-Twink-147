@@ -10,6 +10,7 @@ class Dungeon {
         this.chances = [1, 2, 3, 4]; // the decreasing chances of looking for a new room: (1/1), (1/2),...
         this.previousRooms = [];
         this.currentRooms = [];
+        this.startingRoom =0;
         // Make the matrix containing all of the rooms 
         this.makeDungeon();
     }
@@ -31,7 +32,9 @@ class Dungeon {
         this.previousRooms = []; // This is an array of the rooms that were added in the previous iteration. It's overwritten with previous rooms at the end of every iteration
         this.currentRooms = []; // these are the rooms added in the current iteration. 
         // populate the first room
+        
         this.populateRoom(this.startX, this.startY, depth);
+        this.startingRoom = this.matrix[this.startX][this.startY]
 
         depth++;
 
@@ -214,9 +217,9 @@ class Dungeon {
                     else { // If it isnt a special room, make it one of the basic rooms
                         let chance = getRandomInt(0,3)
 
-                        if ( chance == 0){
+                        //if ( chance == 0){
                             currentRoom.roomType = 'Basic'
-                        }
+                        //}
                         // Roll out the other basic rooms as more types come in
                     }
 
