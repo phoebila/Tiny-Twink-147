@@ -37,7 +37,11 @@ class Play extends Phaser.Scene {
             }
         }
 
-        let heroSpawnCoord = [dung.startingRoom.x * roomWidth + (roomWidth/2), dung.startingRoom.y *roomHeight + (roomHeight/2)]
+        let heroSpawnCoord = [
+            dung.startingRoom.x * roomWidth + (roomWidth / 2),
+            (dung.height - 1 - dung.startingRoom.y) * roomHeight + (roomHeight / 2)
+        ];
+        
         this.hero = new Hero(this, heroSpawnCoord[0], heroSpawnCoord[1], 'hero', 0, 'down');
 
         for (let i = 0; i < collidableObjects.length; i++) {
@@ -71,6 +75,7 @@ class Play extends Phaser.Scene {
 
         this.cameras.main.setBounds(0, 0, roomWidth * dung.width, roomHeight * dung.height);
         this.cameras.main.startFollow(this.hero, false, 0.5, 0.5);
+        this.cameras.main.setZoom(2);
         this.physics.world.setBounds(0, 0, roomWidth * dung.width, roomHeight * dung.height);
     }
 
