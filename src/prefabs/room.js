@@ -5,14 +5,7 @@ class Room  {
         this.y = y
         this.roomNum = roomNum
         this.depth = depth
-        this.roomType = 1
-        if (roomNum == 1) { //starting room
-            this.roomType =0
-        } else if (roomNum == Math.floor(dungeon.maxRooms/ 2)) { // 
-            this.roomType =5
-        }  else if (roomNum == dungeon.maxRooms) { // 
-            this.roomType =10
-        } 
+        this.roomType = 'Basic' // This will be changed in dungeon.cleanup()
 
     }
 
