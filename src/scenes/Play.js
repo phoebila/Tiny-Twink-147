@@ -11,20 +11,14 @@ class Play extends Phaser.Scene {
         // 
         let dung = new Dungeon(5,5,4, 0, 10)
         dung.printMatrix()
-
+        let collidableObjects = []
 
         // Place the matrix into the world
 
         // Loop through each room of the dungeon
         // Place the room at the respective coordinates 
 
-        // These are some of the important sizes for placing the rooms
-        // all of them are measured in pixels
-        let tileSize = 20
-        let roomHeight = 220
-        let roomWidth = 320
-        // These measure the thickness of the walls
-        let wThick = 40
+        
 
         let walls = [ // north, south, east, west walls 
             // stores the index of the sprite sheet that stores the needed wall type
@@ -45,7 +39,6 @@ class Play extends Phaser.Scene {
         for (let x = 0; x < dung.width; x++){
             for (let y = 0; y < dung.height; y++){
                 if (  dung.matrix[x][y] !== null){
-                    console.log(dung.matrix[x][y])
                     // The top left of this room is at:
                     let roomCoord = [x * roomWidth, (dung.height - 1 - y) * roomHeight]
 
@@ -63,11 +56,13 @@ class Play extends Phaser.Scene {
                         }
                     }
                     // After adding the walls, add the floor and objects, using tile map
-                    this.makeNewMap(dung.matrix[x][y].roomNum, roomCoord[0],roomCoord[1], 'tiles' )  
+                    collidableObjects.push (this.makeNewMap(dung.matrix[x][y].roomNum, roomCoord[0],roomCoord[1], 'tiles' ))  
 
                 }
             }
         }
+
+        
 
 
 
@@ -75,6 +70,34 @@ class Play extends Phaser.Scene {
 
         // add new Hero to scene (scene, x, y, key, frame, direction)
         this.hero = new Hero(this, 200, 150, 'hero', 0, 'down')
+
+
+        for (let i = 0; i <collidableObjects.length; i++){
+            this.physics.add.collider(this.hero, collidableObjects[i])
+            // Spent like 2 hours fighting Chatgpt to get this!!!
+            // https://www.youtube.com/watch?v=96kUkPgAiJA&ab_channel=WClarkson 
+            // Turns out I just needed Lord W Clarkson!!!1!!! MY HEROOO 😍
+            collidableObjects[i].setCollisionBetween(0,15)
+            console.log(collidableObjects[i])
+        }
+
+
+        // Add collision with the walls!
+        // Add layer that the player can go under
+
+        for (let x = 0; x < dung.width; x++){
+            for (let y = 0; y < dung.height; y++){
+                if (  dung.matrix[x][y] !== null){
+                    // The top left of this room is at:
+                    let roomCoord = [x * roomWidth, (dung.height - 1 - y) * roomHeight]
+                    this.add.image(roomCoord[0],roomCoord[1], 'dungeonWalls', 10).setOrigin(0) // Adds a wall with a door facing in direction at roomCoord
+                }
+            }
+        }
+
+
+
+
 
         // setup keyboard input
         this.keys = this.input.keyboard.createCursorKeys()
@@ -107,14 +130,17 @@ class Play extends Phaser.Scene {
         // Start by taking the room type and determing what json file that requires
 
         
-        const map = this.make.tilemap({ key: 'Basic' })
+        const map = this.make.tilemap({ key: key })
         // IM CHEATING TO TEST SOMETHING REMOVE THIS LINE^^^^^ DONT FORGET TO REMOVE IT WHEN ALL OF THE ROOMS END UP LOOKING LIKE A BASIC ROOM
         // The line should be this instead: 
         //  const map = this.make.tilemap({ key: key })
-        const tileset = map.addTilesetImage('tiles', 'tiles');
-        const groundLayer = map.createLayer('Tile Layer 1', tileset, x, y);
-        const collisionLayer = map.createLayer('Tile Layer 2', tileset, x, y);
+        let offsetX = x + wThick
+        let offsetY = y+ wThick
+        const tileset = map.addTilesetImage('DungeonSprites1', 'tiles', 20, 20);
+        const groundLayer = map.createLayer('Tile Layer 1', tileset, offsetX , offsetY);
+        const collisionLayer = map.createLayer('Tile Layer 2', tileset, offsetX, offsetY);
         collisionLayer.setCollisionByProperty({ collides: true });
+        return collisionLayer
     }
     
 }

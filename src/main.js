@@ -25,3 +25,10 @@ function getRandomInt(min, max) {
     max = Math.floor(max); // Round down to the nearest integer
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+// These are some of the important sizes for placing the rooms
+// all of them are measured in pixels
+let tileSize = 20
+let roomHeight = 220
+let roomWidth = 320
+// These measure the thickness of the walls
+let wThick = 40
