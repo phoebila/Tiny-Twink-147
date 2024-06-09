@@ -34,3 +34,6 @@ let roomWidth = 320
 let wThick = 40
 let nsDoorWidth = 27
 let ewDoorWidth = 24
+
+
+

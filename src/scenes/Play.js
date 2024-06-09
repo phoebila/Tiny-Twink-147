@@ -5,7 +5,7 @@ class Play extends Phaser.Scene {
 
     create() {
         this.loaded = false;
-        let dung = new Dungeon(5, 5, 4, 0, 10);
+        let dung = new Dungeon(7, 7, 4, 0, 20); // width, height, starting x (0 index), starting y (0 index), max rooms
         dung.printMatrix();
         let collidableObjects = [];
         this.wallCollisions = [];
@@ -31,8 +31,10 @@ class Play extends Phaser.Scene {
                             this.setUpWall(roomCoord[0], roomCoord[1], direction, 0);
                         }
                     }
-
-                    collidableObjects.push(this.makeNewMap(dung.matrix[x][y].roomType, roomCoord[0] + 1, roomCoord[1], 'tiles'));
+                    let collisionLayers = this.makeNewMap(dung.matrix[x][y].roomType, roomCoord[0] + 1, roomCoord[1])
+                    for (let i = 0; i < collisionLayers.length; i++){
+                        collidableObjects.push(collisionLayers[i]);
+                    }
                 }
             }
         }
@@ -83,15 +85,28 @@ class Play extends Phaser.Scene {
         this.heroFSM.step();
     }
 
-    makeNewMap(key, x, y, tilesetName) {
+    makeNewMap(key, x, y) {
         const map = this.make.tilemap({ key: key });
         let offsetX = x + wThick;
         let offsetY = y + wThick;
         const tileset = map.addTilesetImage('DungeonSprites1', 'tiles', 20, 20);
-        const groundLayer = map.createLayer('Tile Layer 1', tileset, offsetX, offsetY);
-        const collisionLayer = map.createLayer('Tile Layer 2', tileset, offsetX, offsetY);
-        collisionLayer.setCollisionByProperty({ collides: true });
-        return collisionLayer;
+        let collisionLayers = []
+        let objectLayers = [];
+
+
+        map.layers.forEach(layer => {
+            //console.log(layer)
+               
+            const tileLayer = map.createLayer(layer.name, tileset, x + wThick, y+ wThick);
+            if (layer.name === 'collision') {
+                tileLayer.setCollisionByProperty({ collides: true });
+                collisionLayers.push(tileLayer)
+            }
+            
+        });
+
+
+        return collisionLayers;
     }
 
     setUpWall(x, y, direction, door) {

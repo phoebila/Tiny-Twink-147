@@ -194,43 +194,27 @@ class Dungeon {
                     Key
                     Boss
                     */
-
+                    console.log("yuh: " + Math.floor(this.maxRooms/2))
                     if (currentRoom.roomNum == 1) {
                         currentRoom.roomType = 'Starting'
                     }
-                    /*
+                    
                     else if (currentRoom.roomNum == this.maxRooms) {
-                        currentRoom.roomType = 'Boss'
-                    } else if (currentRoom.roomNum == Math.floor(this.maxrooms/2) ) {
-                        currentRoom.roomType = 'key' // This needs to change to capital!!!
+                        currentRoom.roomType = 'End'
+                    } else if (currentRoom.roomNum == Math.floor(this.maxRooms/2) ) {
+                        currentRoom.roomType = 'Key' // This needs to change to capital!!!
                     } 
-                    */
+                    
 
                     /* else if (currentRoom.roomNum == 1) {
                         currentRoom.roomType = ''
-                    } else if (currentRoom.roomNum == 1) {
-                        currentRoom.roomType = ''
-                    } else if (currentRoom.roomNum == 1) {
-                        currentRoom.roomType = ''
-                    }
+                    } 
                     */ 
                     else { // If it isnt a special room, make it one of the basic rooms
-                        let chance = getRandomInt(0,3)
-
-                        //if ( chance == 0){
-                            currentRoom.roomType = 'Basic'
-                        //}
+                        let basicRooms = ['Basic' , 'Basic2']
+                        currentRoom.roomType = this.pickRandomRoom(basicRooms)
                         // Roll out the other basic rooms as more types come in
                     }
-
-
-
-
-
-
-
-
-
                 }
             }
         }
@@ -239,5 +223,14 @@ class Dungeon {
         return
     }
     
+
+    pickRandomRoom(rooms){
+        let ran = Math.random()
+        for (let i = 0; i < rooms.length; i++){
+            if (ran < (i+ 1)/rooms.length ){
+                return(rooms[i])
+            }
+        }
+    }
     
 }
