@@ -58,9 +58,12 @@ class Load extends Phaser.Scene {
 
         // Dungeon stuff
         this.load.path = './assets/dungeon/'
+        
+        // tileset
+        this.load.image('tiles', 'tiles.png')
         //tile maps
-        this.load.tilemapTiledJSON('BasicRoom', 'roomTemplates/BasicRoom.json');
-        this.load.tilemapTiledJSON('StartingRoom', 'roomTemplates/StartingRoom.json');
+        this.load.tilemapTiledJSON('Basic', 'roomTemplates/Basic.json');
+        this.load.tilemapTiledJSON('Starting', 'roomTemplates/Starting.json');
 
 
         //walls

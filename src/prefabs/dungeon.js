@@ -23,6 +23,7 @@ class Dungeon {
         }
 
         this.populateMatrix();
+        this.cleanUp();
     }
 
     populateMatrix() {
@@ -173,7 +174,67 @@ class Dungeon {
     }
     
     
-    
+    cleanUp(){
+        // This function goes through each of the rooms and refines their roomtype based on what their room number is, how many neighbors they have 
+        // Originally, we assigned the room type when the room was created, but we added rooms that depend on how many neighbors they have and the neighbor 
+        let currentRoom
+        for (let x = 0; x < this.width; x++){
+            for (let y = 0; y < this.height; y++){
+                currentRoom = this.matrix[x][y]
+                if (  currentRoom !== null){
+                    /*
+                    Room Types:
+                    Starting
+                    Basic
+                    Basic2
+                    ...
+                    Key
+                    Boss
+                    */
+
+                    if (currentRoom.roomNum == 1) {
+                        currentRoom.roomType = 'Starting'
+                    }
+                    /*
+                    else if (currentRoom.roomNum == this.maxRooms) {
+                        currentRoom.roomType = 'Boss'
+                    } else if (currentRoom.roomNum == Math.floor(this.maxrooms/2) ) {
+                        currentRoom.roomType = 'key' // This needs to change to capital!!!
+                    } 
+                    */
+
+                    /* else if (currentRoom.roomNum == 1) {
+                        currentRoom.roomType = ''
+                    } else if (currentRoom.roomNum == 1) {
+                        currentRoom.roomType = ''
+                    } else if (currentRoom.roomNum == 1) {
+                        currentRoom.roomType = ''
+                    }
+                    */ 
+                    else { // If it isnt a special room, make it one of the basic rooms
+                        let chance = getRandomInt(0,3)
+
+                        if ( chance == 0){
+                            currentRoom.roomType = 'Basic'
+                        }
+                        // Roll out the other basic rooms as more types come in
+                    }
+
+
+
+
+
+
+
+
+
+                }
+            }
+        }
+
+
+        return
+    }
     
     
 }
