@@ -6,7 +6,7 @@ const config = {
     width: 1280, // formerly 1280 x 720
     height: 720,
     pixelArt: true,
-    zoom: 2,
+    zoom: 1,
     physics: {
         default: "arcade",
         arcade: {

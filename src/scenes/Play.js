@@ -32,7 +32,7 @@ class Play extends Phaser.Scene {
                         }
                     }
 
-                    collidableObjects.push(this.makeNewMap(dung.matrix[x][y].roomType, roomCoord[0], roomCoord[1], 'tiles'));
+                    collidableObjects.push(this.makeNewMap(dung.matrix[x][y].roomType, roomCoord[0] + 1, roomCoord[1], 'tiles'));
                 }
             }
         }
