@@ -5,7 +5,7 @@ class Load extends Phaser.Scene {
 
     preload() {
         // load the visual goodz
-        this.load.path = './assets/'
+        this.load.path = './assets/CharacterCreator/'
 
         
 
@@ -56,8 +56,18 @@ class Load extends Phaser.Scene {
         this.load.image("start", "startButton.png")
         this.load.image("title", "TitleScreen.png")
 
+        // Dungeon stuff
+        this.load.path = './assets/dungeon/'
+        //tile maps
+        this.load.tilemapTiledJSON('BasicRoom', 'roomTemplates/BasicRoom.json');
+        this.load.tilemapTiledJSON('StartingRoom', 'roomTemplates/StartingRoom.json');
 
 
+        //walls
+        this.load.spritesheet ('dungeonWalls', 'walls.png', {
+            frameWidth: 320,
+            frameHeight: 220,
+        })
     }
 
     create() {
