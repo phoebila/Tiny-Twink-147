@@ -199,7 +199,7 @@ class Dungeon {
                             let keyRooms = ['Key' , 'Key2','Key3','Key4','Key5','Key5']
                             currentRoom.roomType = this.pickRandomRoom(keyRooms)
                         }
-                    } else if ( Math.random() < 1/10  ) {
+                    } else if ( Math.random() < 1/20  ) {
                         currentRoom.roomType = 'Wizard'
                     } else { // If it isnt a special room, make it one of the basic rooms
                         if ( arraysEqual( currentRoom.neighbors, [true, true, false, false] ) &&Math.random() < 1/2){

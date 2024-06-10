@@ -84,7 +84,7 @@ class Play extends Phaser.Scene {
         //     this.physics.world.debugGraphic.clear();
         // }, this);
 
-        document.getElementById('info').innerHTML = '<strong>CharacterFSM.js:</strong> Arrows: move | SPACE: attack | SHIFT: dash attack | F: spin attack | H: hurt (knockback) | D: debug (toggle)';
+        //document.getElementById('info').innerHTML = '<strong>CharacterFSM.js:</strong> Arrows: move | SPACE: attack | SHIFT: dash attack | F: spin attack | H: hurt (knockback) | D: debug (toggle)';
 
         this.cam = this.cameras.main
         //this.cam.setBounds(dung.startingRoom.x * roomWidth, (dung.height - 1 - dung.startingRoom.y) * roomHeight , dung.width * roomWidth, dung.height * roomHeight)
