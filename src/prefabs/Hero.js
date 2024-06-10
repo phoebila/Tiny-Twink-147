@@ -8,7 +8,7 @@ class Hero extends Phaser.Physics.Arcade.Sprite {
         this.body.setSize(this.width / 4, this.height / 4)
         //this.body.setOffset(8,20)
         this.body.setCollideWorldBounds(true)
-
+        
         // set custom Hero properties
         //this.direction = direction 
         this.heroVelocity = 100    // in pixels

@@ -191,7 +191,22 @@ class Play extends Phaser.Scene {
                 collisionLayers.push(tileLayer);
             }
         });
-    
+        // Fire and Wizard animations
+
+        this.anims.create({
+            key: 'fire',
+            frames: this.anims.generateFrameNumbers('objects2', { start: 3, end: 4 }), // Assuming 'objects2' is correct
+            frameRate: 2, // 2 frames per second
+            repeat: -1 // Loop the animation
+        });
+
+        this.anims.create({
+            key: 'dance',
+            frames: this.anims.generateFrameNumbers('objects2', { start: 0, end: 1 }), // Assuming 'objects2' is correct
+            frameRate: 2, // 2 frames per second
+            repeat: -1 // Loop the animation
+        });
+
         // Handle object layers
         map.objects.forEach(objectLayer => {
             if (objectLayer.name === 'key') {
@@ -211,36 +226,38 @@ class Play extends Phaser.Scene {
                 objectLayer.objects.forEach(obj => {
                     let fire = this.add.sprite(offsetX + obj.x, offsetY+obj.y, 'objects2').setOrigin(0,1)
                     fire.setFrame(4)
+                    fire.play("fire")
             })
             if (objectLayer.name === 'wizard')
                 objectLayer.objects.forEach(obj => {
-                    let fire = this.add.sprite(offsetX + obj.x, offsetY+obj.y, 'objects2').setOrigin(0,1)
-                    fire.setFrame(0)
+                    let wizard = this.add.sprite(offsetX + obj.x, offsetY+obj.y, 'objects2').setOrigin(0,1)
+                    wizard.setFrame(0)
+                    wizard.play('dance')
             })
             if (objectLayer.name === 'frog')
                 objectLayer.objects.forEach(obj => {
-                    let fire = this.add.sprite(offsetX + obj.x, offsetY+obj.y, 'objects').setOrigin(0,1)
-                    fire.setFrame(3)
+                    let frog = this.add.sprite(offsetX + obj.x, offsetY+obj.y, 'objects').setOrigin(0,1)
+                    frog.setFrame(3)
             })
             if (objectLayer.name === 'sigil')
                 objectLayer.objects.forEach(obj => {
-                    let fire = this.add.sprite(offsetX + obj.x, offsetY+obj.y, 'objects2').setOrigin(0,1)
-                    fire.setFrame(5)
+                    let sigil = this.add.sprite(offsetX + obj.x, offsetY+obj.y, 'objects2').setOrigin(0,1)
+                    sigil.setFrame(5)
             })
             if (objectLayer.name === 'orb')
                 objectLayer.objects.forEach(obj => {
-                    let fire = this.add.sprite(offsetX + obj.x, offsetY+obj.y, 'objects').setOrigin(0,1)
-                    fire.setFrame(6)
+                    let orb = this.add.sprite(offsetX + obj.x, offsetY+obj.y, 'objects').setOrigin(0,1)
+                    orb.setFrame(6)
             })
             if (objectLayer.name === 'button')
                 objectLayer.objects.forEach(obj => {
-                    let fire = this.add.sprite(offsetX + obj.x, offsetY+obj.y, 'objects').setOrigin(0,1)
-                    fire.setFrame(13)
+                    let button = this.add.sprite(offsetX + obj.x, offsetY+obj.y, 'objects').setOrigin(0,1)
+                    button.setFrame(13)
             })
             if (objectLayer.name === 'chest')
                 objectLayer.objects.forEach(obj => {
-                    let fire = this.add.sprite(offsetX + obj.x, offsetY+obj.y, 'objects2').setOrigin(0,1)
-                    fire.setFrame(2)
+                    let chest = this.add.sprite(offsetX + obj.x, offsetY+obj.y, 'objects2').setOrigin(0,1)
+                    chest.setFrame(2)
             })
         });
     
