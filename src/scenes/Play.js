@@ -97,6 +97,23 @@ class Play extends Phaser.Scene {
                 if (dung.matrix[x][y] !== null) {
                     let roomCoord = [x * roomWidth, (dung.height - 1 - y) * roomHeight];
                     this.add.image(roomCoord[0], roomCoord[1], 'dungeonWalls', 10).setOrigin(0);
+                    
+                    if (dung.matrix[x][y].roomType == 'End'){
+                        console.log(x,y)
+                        if ( dung.matrix[x][y].neighbors[0]){ // Add a south  door to north room
+                            this.door = this.physics.add.sprite(roomCoord[0] + ( Math.floor(roomWidth/2)) ,roomCoord[1] - wThick,'southdoor')
+                            console.log("north")
+                        } else if (dung.matrix[x][y].neighbors[1]){
+                            this.door = this.physics.add.sprite(roomCoord[0] + ( Math.floor(roomWidth/2)) ,roomCoord[1] +roomHeight + wThick -11,'northdoor')
+                            console.log("south")
+                        }else if (dung.matrix[x][y].neighbors[2]){ // add west door to east room
+                            this.door = this.physics.add.sprite(roomCoord[0] + roomWidth +wThick ,roomCoord[1] +roomHeight/2  ,'westdoor')
+                            console.log("east")
+                       }else if (dung.matrix[x][y].neighbors[3]){
+                            this.door = this.physics.add.sprite( roomCoord[0] - wThick ,roomCoord[1] +roomHeight/2  ,'eastdoor')
+                            console.log("west")
+                        }
+                    }
                 }
             }
         }
