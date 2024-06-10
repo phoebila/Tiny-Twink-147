@@ -59,7 +59,7 @@ class Play extends Phaser.Scene {
         
         for (let i = 0; i < collidableObjects.length; i++) {
             this.physics.add.collider(this.hero, collidableObjects[i]);
-            collidableObjects[i].setCollisionBetween(0, 15);
+            collidableObjects[i].setCollisionBetween(0, 16);
         }
 
         for (let i = 0; i < this.wallCollisions.length; i++) {
@@ -79,10 +79,10 @@ class Play extends Phaser.Scene {
         this.keys.HKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
         this.keys.FKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
 
-        this.input.keyboard.on('keydown-D', function () {
-            this.physics.world.drawDebug = this.physics.world.drawDebug ? false : true;
-            this.physics.world.debugGraphic.clear();
-        }, this);
+        // this.input.keyboard.on('keydown-D', function () {
+        //     this.physics.world.drawDebug = this.physics.world.drawDebug ? true : false;
+        //     this.physics.world.debugGraphic.clear();
+        // }, this);
 
         document.getElementById('info').innerHTML = '<strong>CharacterFSM.js:</strong> Arrows: move | SPACE: attack | SHIFT: dash attack | F: spin attack | H: hurt (knockback) | D: debug (toggle)';
 
@@ -174,25 +174,45 @@ class Play extends Phaser.Scene {
         const map = this.make.tilemap({ key: key });
         let offsetX = x + wThick;
         let offsetY = y + wThick;
-        const tileset = map.addTilesetImage('DungeonSprites1', 'tiles', 20, 20);
-        let collisionLayers = []
-        let objectLayers = [];
-
-
+    
+        // Add both tilesets
+        const tileset1 = map.addTilesetImage('DungeonSprites1', 'tiles', 20, 20);
+        const tileset2 = map.addTilesetImage('DungeonSprites2', 'tiles2', 20, 20);
+    
+        let collisionLayers = [];
+    
+        // Handle tile layers
         map.layers.forEach(layer => {
-            //console.log(layer)
-               
-            const tileLayer = map.createLayer(layer.name, tileset, x + wThick, y+ wThick);
-            if (layer.name === 'collision') {
-                tileLayer.setCollisionByProperty({ collides: true });
-                collisionLayers.push(tileLayer)
-            }
             
+    
+            const tileLayer = map.createLayer(layer.name, [tileset1,tileset2], offsetX, offsetY);
+            if (layer.name === 'collision' || layer.name === 'pit') {
+                tileLayer.setCollisionByProperty({ collides: true });
+                collisionLayers.push(tileLayer);
+            }
         });
-
-
+    
+        // Handle object layers
+        map.objects.forEach(objectLayer => {
+            if (objectLayer.name === 'key') {
+                objectLayer.objects.forEach(obj => {
+                    
+                    let key = this.add.sprite(offsetX + obj.x, offsetY+obj.y, 'objects').setOrigin(0,1)
+                    key.setFrame(5)
+                });
+            }
+            if (objectLayer.name === 'push') {
+                objectLayer.objects.forEach(obj => {
+                    let push = this.add.sprite(offsetX + obj.x, offsetY+obj.y, 'objects').setOrigin(0,1)
+                    push.setFrame(1)
+                });
+            }
+        });
+    
         return collisionLayers;
     }
+    
+    
 
     setUpWall(x, y, direction, door) {
         const offsets = {

@@ -211,8 +211,15 @@ class Dungeon {
                     } 
                     */ 
                     else { // If it isnt a special room, make it one of the basic rooms
-                        let basicRooms = ['Basic' , 'Basic2','Basic3','Basic4','Basic5','Basic6']
-                        currentRoom.roomType = this.pickRandomRoom(basicRooms)
+                        let ran = Math.random()
+                        if (ran < 2/3){
+                            let basicRooms = ['Basic' , 'Basic2','Basic3','Basic4','Basic5','Basic6']
+                            currentRoom.roomType = this.pickRandomRoom(basicRooms)
+                        } else {
+                            
+                            let mazeRooms = ['Maze' , 'Maze2','Maze4','Maze5','Maze6', 'Maze8']
+                            currentRoom.roomType = this.pickRandomRoom(mazeRooms)
+                        }
                         // Roll out the other basic rooms as more types come in
                     }
                 }

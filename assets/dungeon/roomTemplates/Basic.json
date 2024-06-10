@@ -63,6 +63,19 @@
          "tilecount":16,
          "tileheight":20,
          "tilewidth":20
+        }, 
+        {
+         "columns":2,
+         "firstgid":17,
+         "image":"..\/dungeonSprites2.png",
+         "imageheight":60,
+         "imagewidth":40,
+         "margin":0,
+         "name":"DungeonSprites2",
+         "spacing":0,
+         "tilecount":6,
+         "tileheight":20,
+         "tilewidth":20
         }],
  "tilewidth":20,
  "type":"map",
