@@ -203,7 +203,7 @@ class Play extends Phaser.Scene {
         this.anims.create({
             key: 'dance',
             frames: this.anims.generateFrameNumbers('objects2', { start: 0, end: 1 }), // Assuming 'objects2' is correct
-            frameRate: 2, // 2 frames per second
+            frameRate: 3, // 2 frames per second
             repeat: -1 // Loop the animation
         });
 
