@@ -25,6 +25,11 @@ function getRandomInt(min, max) {
     max = Math.floor(max); // Round down to the nearest integer
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+function arraysEqual(a, b) {
+    return JSON.stringify(a) === JSON.stringify(b);
+}
+
 // These are some of the important sizes for placing the rooms
 // all of them are measured in pixels
 let tileSize = 20

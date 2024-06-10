@@ -185,42 +185,42 @@ class Dungeon {
             for (let y = 0; y < this.height; y++){
                 currentRoom = this.matrix[x][y]
                 if (  currentRoom !== null){
-                    /*
-                    Room Types:
-                    Starting
-                    Basic
-                    Basic2
-                    ...
-                    Key
-                    Boss
-                    */
-                    console.log("yuh: " + Math.floor(this.maxRooms/2))
                     if (currentRoom.roomNum == 1) {
                         currentRoom.roomType = 'Starting'
-                    }
-                    
-                    else if (currentRoom.roomNum == this.maxRooms) {
+                    }else if (currentRoom.roomNum == this.maxRooms) {
                         currentRoom.roomType = 'End'
                     } else if (currentRoom.roomNum == Math.floor(this.maxRooms/2) ) {
-                        currentRoom.roomType = 'Key' // This needs to change to capital!!!
-                    } 
-                    
-
-                    /* else if (currentRoom.roomNum == 1) {
-                        currentRoom.roomType = ''
-                    } 
-                    */ 
-                    else { // If it isnt a special room, make it one of the basic rooms
-                        let ran = Math.random()
-                        if (ran < 2/3){
-                            let basicRooms = ['Basic' , 'Basic2','Basic3','Basic4','Basic5','Basic6']
-                            currentRoom.roomType = this.pickRandomRoom(basicRooms)
+                        if ( arraysEqual( currentRoom.neighbors, [true, true, false, false] ) ){
+                            currentRoom.roomType = 'KeyNS'
+                        } else if ( arraysEqual( currentRoom.neighbors, [false, false, true, true] ) ){
+                            let keyRooms = ['KeyEW', 'KeyEWStrict' ]
+                            currentRoom.roomType = this.pickRandomRoom(keyRooms)
                         } else {
-                            
-                            let mazeRooms = ['Maze' , 'Maze2','Maze4','Maze5','Maze6', 'Maze8']
-                            currentRoom.roomType = this.pickRandomRoom(mazeRooms)
+                            let keyRooms = ['Key' , 'Key2','Key3','Key4','Key5','Key5']
+                            currentRoom.roomType = this.pickRandomRoom(keyRooms)
                         }
-                        // Roll out the other basic rooms as more types come in
+                    } else if ( Math.random() < 1/10  ) {
+                        currentRoom.roomType = 'Wizard'
+                    } else { // If it isnt a special room, make it one of the basic rooms
+                        if ( arraysEqual( currentRoom.neighbors, [true, true, false, false] ) &&Math.random() < 1/2){
+                            // If it can be a direction specific room, roll a 50/50
+                            // 50% chance it is a direction specific room
+                            currentRoom.roomType = 'BasicNS'
+                        } else if ( arraysEqual( currentRoom.neighbors, [false, false, true, true ] ) && Math.random() < 1/2){
+                            // If it can be a direction specific room, roll a 50/50
+                            // 50% chance it is a direction specific room
+                            currentRoom.roomType = 'BasicEW'
+                        } else {
+                            if ( Math.random() < 2/3){
+                                let basicRooms = ['Basic' , 'Basic2','Basic3','Basic4','Basic5','Basic6']
+                                currentRoom.roomType = this.pickRandomRoom(basicRooms)
+                            } else {
+                                
+                                let mazeRooms = ['Maze' , 'Maze2','Maze4','Maze5','Maze6', 'Maze8']
+                                currentRoom.roomType = this.pickRandomRoom(mazeRooms)
+                            }
+                        }
+                        
                     }
                 }
             }

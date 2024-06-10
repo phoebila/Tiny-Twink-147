@@ -73,7 +73,7 @@ class Load extends Phaser.Scene {
 
         // tile maps
         const tilemaps = [
-            'Basic', 'Basic2', 'Basic3', 'Basic4', 'Basic5', 'Basic6', 
+            'Basic', 'Basic2', 'Basic3', 'Basic4', 'Basic5', 'Basic6', 'BasicNS' ,'BasicEW',
             'Starting', 'End', 
             'Maze', 'Maze2', 'Maze3', 'Maze4', 'Maze5', 'Maze6','Maze7', 'Maze8', 'MazeEW', 'MazeEW2', 'MazeNS', 'MazeNS2',
             'Wizard', 
