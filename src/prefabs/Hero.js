@@ -1,15 +1,16 @@
 // Hero prefab
 class Hero extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y, texture, frame, direction) {
-        super(scene, x, y, texture, frame) // call Sprite parent class
+    constructor(scene, x, y, texture) {
+        super(scene, x, y, texture) // call Sprite parent class
         scene.add.existing(this)           // add Hero to existing scene
         scene.physics.add.existing(this)   // add physics body to scene
 
-        this.body.setSize(this.width / 2, this.height / 2)
+        this.body.setSize(this.width / 4, this.height / 4)
+        this.body.setOffset(8,20)
         this.body.setCollideWorldBounds(true)
 
         // set custom Hero properties
-        this.direction = direction 
+        //this.direction = direction 
         this.heroVelocity = 100    // in pixels
         this.dashCooldown = 300    // in ms
         this.hurtTimer = 250       // in ms
@@ -18,10 +19,10 @@ class Hero extends Phaser.Physics.Arcade.Sprite {
         scene.heroFSM = new StateMachine('idle', {
             idle: new IdleState(),
             move: new MoveState(),
-            swing: new SwingState(),
+            //swing: new SwingState(),
             dash: new DashState(),
-            hurt: new HurtState(),
-            circular: new CircularState()
+            //hurt: new HurtState(),
+            //circular: new CircularState()
         }, [scene, this])   // pass these as arguments to maintain scene/object context in the FSM
     }
 }
@@ -30,8 +31,8 @@ class Hero extends Phaser.Physics.Arcade.Sprite {
 class IdleState extends State {
     enter(scene, hero) {
         hero.setVelocity(0)
-        hero.anims.play(`walk-${hero.direction}`)
-        hero.anims.stop()
+        //hero.anims.play(`walk-${hero.direction}`)
+        //hero.anims.stop()
     }
 
     execute(scene, hero) {
@@ -41,10 +42,10 @@ class IdleState extends State {
         const FKey = scene.keys.FKey
 
         // transition to swing if pressing space
-        if(Phaser.Input.Keyboard.JustDown(space)) {
-            this.stateMachine.transition('swing')
-            return
-        }
+        //if(Phaser.Input.Keyboard.JustDown(space)) {
+            //this.stateMachine.transition('swing')
+            //return
+        //}
 
         // transition to dash if pressing shift
         if(Phaser.Input.Keyboard.JustDown(shift)) {
@@ -53,16 +54,16 @@ class IdleState extends State {
         }
 
         // hurt if H key input (just for demo purposes)
-        if(Phaser.Input.Keyboard.JustDown(HKey)) {
-            this.stateMachine.transition('hurt')
-            return
-        }
+        //if(Phaser.Input.Keyboard.JustDown(HKey)) {
+            //this.stateMachine.transition('hurt')
+            //return
+        //}
 
         // circle attack if f key input
-        if (Phaser.Input.Keyboard.JustDown(FKey)){
-            this.stateMachine.transition('circular')
-            return
-        }
+        //if (Phaser.Input.Keyboard.JustDown(FKey)){
+            //this.stateMachine.transition('circular')
+            //return
+        //}
 
         // transition to move if pressing a movement key
         if(left.isDown || right.isDown || up.isDown || down.isDown ) {
@@ -81,10 +82,10 @@ class MoveState extends State {
 
 
         // transition to swing if pressing space
-        if(Phaser.Input.Keyboard.JustDown(space)) {
-            this.stateMachine.transition('swing')
-            return
-        }
+        //if(Phaser.Input.Keyboard.JustDown(space)) {
+            //this.stateMachine.transition('swing')
+            //return
+        //}
 
         // transition to dash if pressing shift
         if(Phaser.Input.Keyboard.JustDown(shift)) {
@@ -93,16 +94,16 @@ class MoveState extends State {
         }
 
         // hurt if H key input (just for demo purposes)
-        if(Phaser.Input.Keyboard.JustDown(HKey)) {
-            this.stateMachine.transition('hurt')
-            return
-        }
+        //if(Phaser.Input.Keyboard.JustDown(HKey)) {
+            //this.stateMachine.transition('hurt')
+            //return
+        //}
 
         // circle attack if f key input
-        if (Phaser.Input.Keyboard.JustDown(FKey)){
-            this.stateMachine.transition('circular')
-            return
-        }
+        //if (Phaser.Input.Keyboard.JustDown(FKey)){
+            //this.stateMachine.transition('circular')
+            //return
+        //}
 
         
 
@@ -131,11 +132,11 @@ class MoveState extends State {
         // normalize movement vector, update hero position, and play proper animation
         moveDirection.normalize()
         hero.setVelocity(hero.heroVelocity * moveDirection.x, hero.heroVelocity * moveDirection.y)
-        hero.anims.play(`walk-${hero.direction}`, true)
+        //hero.anims.play(`walk-${hero.direction}`, true)
     }
 }
 
-class SwingState extends State {
+/*class SwingState extends State {
     enter(scene, hero) {
         hero.setVelocity(0)
         hero.anims.play(`swing-${hero.direction}`)
@@ -143,13 +144,13 @@ class SwingState extends State {
             this.stateMachine.transition('idle')
         })
     }
-}
+}*/
 
 class DashState extends State {
     enter(scene, hero) {
         hero.setVelocity(0)
-        hero.anims.play(`swing-${hero.direction}`)
-        hero.setTint(0x00AA00)     // turn green
+        //hero.anims.play(`swing-${hero.direction}`)
+        //hero.setTint(0x00AA00)     // turn green
         switch(hero.direction) {
             case 'up':
                 hero.setVelocityY(-hero.heroVelocity * 3)
@@ -167,13 +168,13 @@ class DashState extends State {
 
         // set a short cooldown delay before going back to idle
         scene.time.delayedCall(hero.dashCooldown, () => {
-            hero.clearTint()
+            //hero.clearTint()
             this.stateMachine.transition('idle')
         })
     }
 }
 
-class HurtState extends State {
+/*class HurtState extends State {
     enter(scene, hero) {
         hero.setVelocity(0)
         hero.anims.play(`walk-${hero.direction}`)
@@ -201,9 +202,9 @@ class HurtState extends State {
             this.stateMachine.transition('idle')
         })
     }
-}
+}*/
 
-class CircularState extends State {
+/*class CircularState extends State {
     enter(scene, hero){
         // hero.setTint(0x000FF)
         hero.setVelocity(0)
@@ -212,4 +213,4 @@ class CircularState extends State {
             this.stateMachine.transition('idle')
         })
     }
-}
+}*/

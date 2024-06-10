@@ -4,6 +4,12 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+
+        // character testing 
+        // console.log(characterSelect); //works, index 0 includes shirt, hair and skin tone
+        // Retrieve the composite character texture key from the registry
+        const compositeCharacterKey = this.registry.get('compositeCharacterKey');
+
         this.loaded = false;
         let dung = new Dungeon(7, 7, 4, 0, 20); // width, height, starting x (0 index), starting y (0 index), max rooms
         dung.printMatrix();
@@ -44,8 +50,11 @@ class Play extends Phaser.Scene {
             (dung.height - 1 - dung.startingRoom.y) * roomHeight + (roomHeight / 2)
         ];
         
-        this.hero = new Hero(this, heroSpawnCoord[0], heroSpawnCoord[1], 'hero', 0, 'down');
+        this.hero = new Hero(this, heroSpawnCoord[0], heroSpawnCoord[1], compositeCharacterKey);
 
+        // selected traits from user into dung
+        //this.add.image(heroSpawnCoord[0], heroSpawnCoord[1], compositeCharacterKey).setScale(5)
+        
         for (let i = 0; i < collidableObjects.length; i++) {
             this.physics.add.collider(this.hero, collidableObjects[i]);
             collidableObjects[i].setCollisionBetween(0, 15);
