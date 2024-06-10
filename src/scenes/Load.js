@@ -56,23 +56,33 @@ class Load extends Phaser.Scene {
         this.load.image("title", "TitleScreen.png")
 
         // Dungeon stuff
-        this.load.path = './assets/dungeon/'
-        
-        // tileset
-        this.load.image('tiles', 'tiles.png')
-        //tile maps
-        this.load.tilemapTiledJSON('Basic', 'roomTemplates/Basic.json');
-        this.load.tilemapTiledJSON('Basic2', 'roomTemplates/Basic2.json');
-        this.load.tilemapTiledJSON('Basic3', 'roomTemplates/Basic3.json');
-        this.load.tilemapTiledJSON('Basic4', 'roomTemplates/Basic4.json');
-        this.load.tilemapTiledJSON('Basic5', 'roomTemplates/Basic5.json');
-        this.load.tilemapTiledJSON('Basic6', 'roomTemplates/Basic6.json');
-        this.load.tilemapTiledJSON('Starting', 'roomTemplates/Starting.json');
-        this.load.tilemapTiledJSON('End', 'roomTemplates/End.json');
-        this.load.tilemapTiledJSON('Maze', 'roomTemplates/Maze.json');
-        this.load.tilemapTiledJSON('Wizard', 'roomTemplates/Wizard.json');
-        this.load.tilemapTiledJSON('Key', 'roomTemplates/Key.json');
+        this.load.path = './assets/dungeon/';
 
+        // tileset
+        this.load.image('tiles', 'tiles.png');
+        this.load.image('tiles2', 'tiles2.png')
+        // Objects
+        this.load.spritesheet('objects', 'tiles.png',{
+            frameWidth: 20,
+            frameHeight: 20,
+        })
+        this.load.spritesheet('objects2', 'tiles2.png',{
+            frameWidth: 20,
+            frameHeight: 20,
+        })
+
+        // tile maps
+        const tilemaps = [
+            'Basic', 'Basic2', 'Basic3', 'Basic4', 'Basic5', 'Basic6', 
+            'Starting', 'End', 
+            'Maze', 'Maze2', 'Maze3', 'Maze4', 'Maze5', 'Maze6','Maze7', 'Maze8', 'MazeEW', 'MazeEW2', 'MazeNS', 'MazeNS2',
+            'Wizard', 
+            'Key', 'Key2', 'Key3', 'Key4', 'Key5', 'KeyEWStrict', 'KeyNS', 'KeyTest'
+        ];
+
+        tilemaps.forEach(name => {
+            this.load.tilemapTiledJSON(name, `roomTemplates/${name}.json`);
+        });
 
         //walls
         this.load.spritesheet ('dungeonWalls', 'walls.png', {
