@@ -11,8 +11,8 @@ class Play extends Phaser.Scene {
         // console.log(characterSelect); //works, index 0 includes shirt, hair and skin tone
         // Retrieve the composite character texture key from the registry
         const compositeCharacterKey = this.registry.get('compositeCharacterKey');
-
-        this.loaded = false;
+        this.objects =[]
+        this.hasKey = false;
         let dung = new Dungeon(7, 7, 4, 0, 20); // width, height, starting x (0 index), starting y (0 index), max rooms
         dung.printMatrix();
         let collidableObjects = [];
@@ -51,8 +51,16 @@ class Play extends Phaser.Scene {
             dung.startingRoom.x * roomWidth + (roomWidth / 2),
             (dung.height - 1 - dung.startingRoom.y) * roomHeight + (roomHeight / 2)
         ];
-        
+        // HERO ADDED HERE - NOW WE NEED TO ADD ALL OF ITS PHYSICS INTERACTIONS!! ---------------------------------------------------------------
         this.hero = new Hero(this, heroSpawnCoord[0], heroSpawnCoord[1], compositeCharacterKey);
+        //Add collisoin with key
+        for ( let i = 0; i < this.objects.length; i++){
+             if ( this.objects[i].type == 'key'){
+                console.log("key collision added")
+                this.physics.add.overlap(this.hero, this.objects[i].sprite,this.handleOverlapKey, null, this);
+             }
+        }
+
 
         // selected traits from user into dung
         //this.add.image(heroSpawnCoord[0], heroSpawnCoord[1], compositeCharacterKey).setScale(5)
@@ -101,6 +109,12 @@ class Play extends Phaser.Scene {
         this.heroFSM.step();
     }
 
+
+    handleOverlapKey(hero, item){
+        this.hasKey = true
+        item.disableBody(true, true)
+        console.log("keyGot")
+    }
 
     //Camera bounds handling attribute to Nathan Altice from this repo
     //https://github.com/nathanaltice/CP-Scrolling-States
@@ -212,8 +226,10 @@ class Play extends Phaser.Scene {
             if (objectLayer.name === 'key') {
                 objectLayer.objects.forEach(obj => {
                     
-                    let key = this.add.sprite(offsetX + obj.x, offsetY+obj.y, 'objects').setOrigin(0,1)
+                    let key = this.physics.add.sprite(offsetX + obj.x, offsetY+obj.y, 'objects').setOrigin(0,1)
                     key.setFrame(5)
+                    console.log("keyadded")
+                    this.objects.push(new interactableObject('key',  key))
                 });
             }
             if (objectLayer.name === 'push') {

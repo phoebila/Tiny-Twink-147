@@ -196,7 +196,7 @@ class Dungeon {
                             let keyRooms = ['KeyEW', 'KeyEWStrict' ]
                             currentRoom.roomType = this.pickRandomRoom(keyRooms)
                         } else {
-                            let keyRooms = ['Key' , 'Key2','Key3','Key4','Key5','Key5']
+                            let keyRooms = ['Key' , 'Key2','Key4','Key5','Key5']
                             currentRoom.roomType = this.pickRandomRoom(keyRooms)
                         }
                     } else if ( Math.random() < 1/20  ) {
