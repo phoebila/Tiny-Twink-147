@@ -5,7 +5,7 @@ class Character extends Phaser.Scene {
 
     // create
     create(){
-        this.map = this.add.image(0, 0, 'map').setOrigin(0)
+        this.map = this.add.image(0, 0, 'dungeonWalls').setScale(15)
 
         // Arrays of character options
         this.skinOptions = ['grayTwink', 'greenTwink', 'orangeTwink', 'pinkTwink', 'redTwink', 'blueTwink']
@@ -39,6 +39,16 @@ class Character extends Phaser.Scene {
         // play button
         this.playButton = this.add.image(875, 610, 'play').setInteractive()
         this.playButton.on('pointerdown', (pointer) => {
+
+
+            // save character selection before going to play scene
+            // pass character selection into dungeon
+            // this.saveCharacterConfiguration()
+
+            let compositeCharacter = this.createCompositeCharacter(this.skinOptions[this.skinIndex], this.hairOptions[this.hairIndex], this.shirtOptions[this.shirtIndex]);
+
+            // Store the composite character texture key in the registry
+            this.registry.set('compositeCharacterKey', compositeCharacter.texture.key);
             this.scene.start("playScene")
         })
 
@@ -50,9 +60,9 @@ class Character extends Phaser.Scene {
 
         // Clothes buttons
         this.LbuttonCl = this.add.image(550, 170, 'Larrow').setInteractive().setScale(3);
-        this.LbuttonCl.on('pointerdown', () => this.changePart('clothes', -1));
+        this.LbuttonCl.on('pointerdown', () => this.changePart('shirt', -1));
         this.RbuttonCl = this.add.image(650, 170, "Rarrow").setInteractive().setScale(3);
-        this.RbuttonCl.on('pointerdown', () => this.changePart('clothes', 1));
+        this.RbuttonCl.on('pointerdown', () => this.changePart('shirt', 1));
 
         // Hair buttons
         this.LbuttonH = this.add.image(550, 275, 'Larrow').setInteractive().setScale(3);
@@ -66,13 +76,8 @@ class Character extends Phaser.Scene {
             this.randomizeCharacter()
         })
 
-    }
 
-    update(){
-        // update the character image based on selection
-        // save character selection
-        // random button
-        // then play button
+        
     }
 
     // Function to change part
@@ -81,10 +86,10 @@ class Character extends Phaser.Scene {
             this.skinIndex = Phaser.Math.Wrap(this.skinIndex + direction, 0, this.skinOptions.length);
             // this.add.image(890, 315, this.skinOptions[this.skinIndex]).setScale(17);
             this.updateCharacterPart('skin', this.skinOptions[this.skinIndex])
-        } else if (part === 'clothes') {
+        } else if (part === 'shirt') {
             this.shirtIndex = Phaser.Math.Wrap(this.shirtIndex + direction, 0, this.shirtOptions.length);
             // this.add.image(890, 355, this.shirtOptions[this.shirtIndex]).setScale(15);
-            this.updateCharacterPart('clothes', this.shirtOptions[this.shirtIndex])
+            this.updateCharacterPart('shirt', this.shirtOptions[this.shirtIndex])
 
         } else if (part === 'hair') {
             this.hairIndex = Phaser.Math.Wrap(this.hairIndex + direction, 0, this.hairOptions.length);
@@ -101,13 +106,13 @@ class Character extends Phaser.Scene {
             }
             // Add the new skin image
             this.skin = this.add.image(890, 315, texture).setScale(17);
-        } else if (part === 'clothes') {
+        } else if (part === 'shirt') {
             // Destroy the current clothes image if it exists
-            if (this.clothes) {
-                this.clothes.destroy();
+            if (this.shirt) {
+                this.shirt.destroy();
             }
             // Add the new clothes image
-            this.clothes = this.add.image(890, 355, texture).setScale(15);
+            this.shirt = this.add.image(890, 355, texture).setScale(15);
         } else if (part === 'hair') {
             // Destroy the current hair image if it exists
             if (this.hair) {
@@ -125,8 +130,46 @@ class Character extends Phaser.Scene {
         this.hairIndex = Phaser.Math.Between(0, this.hairOptions.length - 1);
     
         this.updateCharacterPart('skin', this.skinOptions[this.skinIndex]);
-        this.updateCharacterPart('clothes', this.shirtOptions[this.shirtIndex]);
+        this.updateCharacterPart('shirt', this.shirtOptions[this.shirtIndex]);
         this.updateCharacterPart('hair', this.hairOptions[this.hairIndex]);
     }
 
+    // Use registry to save character choices
+    /*saveCharacterConfiguration() {
+        characterSelect.push({
+            skin: this.skinOptions[this.skinIndex],
+            hair: this.hairOptions[this.hairIndex],
+            shirt: this.shirtOptions[this.shirtIndex]
+        })
+    }*/
+
+
+    // attempt at making it one image
+    createCompositeCharacter(skin, hair, shirt) {
+        // Load the base image
+        // const baseImage = this.add.image(0, 0, 'heroCharacter').setScale(15);
+
+        // // Get the dimensions of the base image
+        // const width = baseImage.width;
+        // const height = baseImage.height;
+        const width = 64; // Assuming width of the base character image
+        const height = 64; // Assuming height of the base character image
+        const renderTexture = this.make.renderTexture({ width, height }, false);
+
+        // Draw images on the RenderTexture
+        renderTexture.draw('heroCharacter', 0, 10).setScale(17);
+        renderTexture.draw(skin, 9, 19).setScale(17);
+        renderTexture.draw(shirt, 13, 26).setScale(17);
+        renderTexture.draw(hair, 9, 13).setScale(15);
+
+        //this.add.sprite(0,0,renderTexture).setScale(10)
+
+        const textureKey = 'compositeCharacter';
+        renderTexture.saveTexture(textureKey);
+        
+        // Return the RenderTexture
+        return renderTexture;
+    }
+
+    
 }

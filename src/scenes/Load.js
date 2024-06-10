@@ -37,7 +37,6 @@ class Load extends Phaser.Scene {
         this.load.image('redHair', 'hairRed.png')
         this.load.image('pinkHair', 'pinkHair.png')
 
-
         //load ui thingies
         this.load.image('Larrow', 'leftMenuArrow.png')
         this.load.image('Rarrow', 'rightMenuArrow.png')
@@ -98,42 +97,6 @@ class Load extends Phaser.Scene {
             frameRate: 8,
             repeat: -1,
             frames: this.anims.generateFrameNumbers('hero', { start: 12, end: 15 }),
-        })
-
-        // hero animations (swinging)
-        this.anims.create({
-            key: 'swing-down',
-            frameRate: 8,
-            repeat: 0,
-            frames: this.anims.generateFrameNumbers('hero', { start: 16, end: 19 }),
-        })
-        this.anims.create({
-            key: 'swing-up',
-            frameRate: 8,
-            repeat: 0,
-            frames: this.anims.generateFrameNumbers('hero', { start: 20, end: 23 }),
-        })
-        this.anims.create({
-            key: 'swing-right',
-            frameRate: 8,
-            repeat: 0,
-            frames: this.anims.generateFrameNumbers('hero', { start: 24, end: 27 }),
-        })
-        this.anims.create({
-            key: 'swing-left',
-            frameRate: 8,
-            repeat: 0,
-            frames: this.anims.generateFrameNumbers('hero', { start: 28, end: 31 }),
-        })
-
-        // add cirucular attack
-        this.anims.create({
-            key: 'circular-attack',
-            frameRate: 24,
-            repeat: 0,
-            frames: this.anims.generateFrameNumbers('hero', {
-                frames: [16, 16, 16, 17, 18, 24, 25, 26, 21, 22, 30, 29, 28, 18, 19, 19, 19, ]
-            })
         })
 
         // proceed once loading completes
