@@ -4,6 +4,21 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+
+
+        this.anims.create({
+            key: 'fire',
+            frames: this.anims.generateFrameNumbers('objects2', { start: 3, end: 4 }), // Assuming 'objects2' is correct
+            frameRate: 2, // 2 frames per second
+            repeat: -1 // Loop the animation
+        });
+
+        this.anims.create({
+            key: 'dance',
+            frames: this.anims.generateFrameNumbers('objects2', { start: 0, end: 1 }), // Assuming 'objects2' is correct
+            frameRate: 3, // 2 frames per second
+            repeat: -1 // Loop the animation
+        });
         this.SCROLLDURATION = 1000
         this.SCROLLSTYLE = 'Quad'
 
@@ -29,7 +44,6 @@ class Play extends Phaser.Scene {
             for (let y = 0; y < dung.height; y++) {
                 if (dung.matrix[x][y] !== null) {
                     let roomCoord = [x * roomWidth, (dung.height - 1 - y) * roomHeight];
-
                     for (let direction = 0; direction < 4; direction++) {
                         if (dung.matrix[x][y].neighbors[direction]) {
                             this.add.image(roomCoord[0], roomCoord[1], 'dungeonWalls', walls[direction][0]).setOrigin(0);
@@ -45,22 +59,7 @@ class Play extends Phaser.Scene {
                     }
 
                     // If this is the boss room, add a door to the room that connects to it!!
-                    if (dung.matrix[x][y].roomType == 'End'){
-                        console.log(x,y)
-                        if ( dung.matrix[x][y].neighbors[0]){ // Add a south  door to north room
-                            this.door = this.physics.add.sprite(roomCoord[0] + ( Math.floor(roomWidth/2)) ,roomCoord[1] - wThick,'southdoor')
-                            console.log("north")
-                        } else if (dung.matrix[x][y].neighbors[1]){
-                            this.door = this.physics.add.sprite(roomCoord[0] + ( Math.floor(roomWidth/2)) ,roomCoord[1] +roomHeight + wThick -11,'northdoor')
-                            console.log("south")
-                        }else if (dung.matrix[x][y].neighbors[2]){ // add west door to east room
-                            this.door = this.physics.add.sprite(roomCoord[0] + roomWidth +wThick ,roomCoord[1] +roomHeight/2  ,'westdoor')
-                            console.log("east")
-                       }else if (dung.matrix[x][y].neighbors[3]){
-                            this.door = this.physics.add.sprite( roomCoord[0] - wThick ,roomCoord[1] +roomHeight/2  ,'eastdoor')
-                            console.log("west")
-                        }
-                    }
+                    
                 }
             }
         }
@@ -77,8 +76,17 @@ class Play extends Phaser.Scene {
                 console.log("key collision added")
                 this.physics.add.overlap(this.hero, this.objects[i].sprite,this.handleOverlapKey, null, this);
              }
+             if ( this.objects[i].type == 'sigil'){
+                
+                console.log("sigil collision added")
+                this.physics.add.overlap(this.hero, this.objects[i].sprite,this.handleOverlapSigil, null, this);
+             }
+
         }
 
+        this.door.setImmovable(true)
+        this.door.setVisible(true)
+        this.physics.add.collider(this.hero, this.door, this.handleDoorCollision, null, this);
 
         // selected traits from user into dung
         //this.add.image(heroSpawnCoord[0], heroSpawnCoord[1], compositeCharacterKey).setScale(5)
@@ -144,11 +152,28 @@ class Play extends Phaser.Scene {
         this.heroFSM.step();
     }
 
+    handleOverlapSigil(hero,item){
+        console.log("touched sigil")
+        this.scene.start("titleScene")
+    }
 
     handleOverlapKey(hero, item){
         this.hasKey = true
         item.disableBody(true, true)
         console.log("keyGot")
+    }
+
+    handleDoorCollision(hero, door) {
+        // Handle what happens when the hero collides with the door
+        console.log("Hero collided with the door");
+        
+        // Example: Check if the hero has a key and open the door
+        if (this.hasKey) {
+            door.disableBody(true, true);
+            console.log("Door opened!");
+        } else {
+            console.log("Door is locked. Find the key first.");
+        }
     }
 
     //Camera bounds handling attribute to Nathan Altice from this repo
@@ -242,19 +267,7 @@ class Play extends Phaser.Scene {
         });
         // Fire and Wizard animations
 
-        this.anims.create({
-            key: 'fire',
-            frames: this.anims.generateFrameNumbers('objects2', { start: 3, end: 4 }), // Assuming 'objects2' is correct
-            frameRate: 2, // 2 frames per second
-            repeat: -1 // Loop the animation
-        });
-
-        this.anims.create({
-            key: 'dance',
-            frames: this.anims.generateFrameNumbers('objects2', { start: 0, end: 1 }), // Assuming 'objects2' is correct
-            frameRate: 3, // 2 frames per second
-            repeat: -1 // Loop the animation
-        });
+        
 
         // Handle object layers
         map.objects.forEach(objectLayer => {
@@ -269,8 +282,8 @@ class Play extends Phaser.Scene {
             }
             if (objectLayer.name === 'push') {
                 objectLayer.objects.forEach(obj => {
-                    let push = this.add.sprite(offsetX + obj.x, offsetY+obj.y, 'objects').setOrigin(0,1)
-                    push.setFrame(1)
+                    // let push = this.add.sprite(offsetX + obj.x, offsetY+obj.y, 'objects').setOrigin(0,1)
+                    // push.setFrame(1)
                 });
             }
             if (objectLayer.name === 'fire')
@@ -293,6 +306,9 @@ class Play extends Phaser.Scene {
             if (objectLayer.name === 'sigil')
                 objectLayer.objects.forEach(obj => {
                     let sigil = this.add.sprite(offsetX + obj.x, offsetY+obj.y, 'objects2').setOrigin(0,1)
+
+                    console.log("sigiladded")
+                    this.objects.push(new interactableObject('sigil',  sigil))
                     sigil.setFrame(5)
             })
             if (objectLayer.name === 'orb')
