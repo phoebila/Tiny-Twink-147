@@ -63,6 +63,11 @@ class Load extends Phaser.Scene {
         //tile maps
         this.load.tilemapTiledJSON('Basic', 'roomTemplates/Basic.json');
         this.load.tilemapTiledJSON('Starting', 'roomTemplates/Starting.json');
+        this.load.tilemapTiledJSON('Basic2', 'roomTemplates/Basic2.json');
+        this.load.tilemapTiledJSON('End', 'roomTemplates/End.json');
+        this.load.tilemapTiledJSON('Maze', 'roomTemplates/Maze.json');
+        this.load.tilemapTiledJSON('Wizard', 'roomTemplates/Wizard.json');
+        this.load.tilemapTiledJSON('Key', 'roomTemplates/Wizard.json');
 
 
         //walls
