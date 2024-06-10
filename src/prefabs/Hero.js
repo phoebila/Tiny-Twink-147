@@ -6,7 +6,7 @@ class Hero extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this)   // add physics body to scene
 
         this.body.setSize(this.width / 4, this.height / 4)
-        this.body.setOffset(8,20)
+        //this.body.setOffset(8,20)
         this.body.setCollideWorldBounds(true)
 
         // set custom Hero properties
@@ -14,7 +14,6 @@ class Hero extends Phaser.Physics.Arcade.Sprite {
         this.heroVelocity = 100    // in pixels
         this.dashCooldown = 300    // in ms
         this.hurtTimer = 250       // in ms
-
         // initialize state machine managing hero (initial state, possible states, state args[])
         scene.heroFSM = new StateMachine('idle', {
             idle: new IdleState(),
@@ -125,9 +124,11 @@ class MoveState extends State {
         if(left.isDown) {
             moveDirection.x = -1
             hero.direction = 'left'
+            hero.flipX = true;
         } else if(right.isDown) {
             moveDirection.x = 1
             hero.direction = 'right'
+            hero.flipX = false;
         }
         // normalize movement vector, update hero position, and play proper animation
         moveDirection.normalize()

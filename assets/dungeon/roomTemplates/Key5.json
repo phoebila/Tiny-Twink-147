@@ -30,7 +30,7 @@
             0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0],
          "height":7,
          "id":3,
-         "name":"coliision",
+         "name":"collision",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
@@ -107,7 +107,7 @@
         {
          "columns":2,
          "firstgid":17,
-         "image":"..\/dungeonSprites2.png",
+         "image":"..\/tiles2.png",
          "imageheight":60,
          "imagewidth":40,
          "margin":0,

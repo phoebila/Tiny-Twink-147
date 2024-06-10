@@ -152,7 +152,7 @@ class Character extends Phaser.Scene {
         // // Get the dimensions of the base image
         // const width = baseImage.width;
         // const height = baseImage.height;
-        const width = 64; // Assuming width of the base character image
+        const width = 25; // Assuming width of the base character image
         const height = 64; // Assuming height of the base character image
         const renderTexture = this.make.renderTexture({ width, height }, false);
 
