@@ -193,8 +193,8 @@ class Dungeon {
                         if ( arraysEqual( currentRoom.neighbors, [true, true, false, false] ) ){
                             currentRoom.roomType = 'KeyNS'
                         } else if ( arraysEqual( currentRoom.neighbors, [false, false, true, true] ) ){
-                            let keyRooms = [ 'KeyEWStrict' ]
-                            currentRoom.roomType = 'KeyEWStrict'
+                            let keyRooms = ['KeyEW', 'KeyEWStrict' ]
+                            currentRoom.roomType = this.pickRandomRoom(keyRooms)
                         } else {
                             let keyRooms = ['Key' , 'Key2','Key4','Key5','Key5']
                             currentRoom.roomType = this.pickRandomRoom(keyRooms)

@@ -61,11 +61,6 @@ class Load extends Phaser.Scene {
         // tileset
         this.load.image('tiles', 'tiles.png');
         this.load.image('tiles2', 'tiles2.png')
-        //door
-        this.load.image('eastdoor','eastdoor.png')
-        this.load.image('westdoor','westdoor.png')
-        this.load.image('northdoor','northdoor.png')
-        this.load.image('southdoor','southdoor.png')
         // Objects
         this.load.spritesheet('objects', 'tiles.png',{
             frameWidth: 20,
