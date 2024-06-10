@@ -211,7 +211,7 @@ class Dungeon {
                     } 
                     */ 
                     else { // If it isnt a special room, make it one of the basic rooms
-                        let basicRooms = ['Basic' , 'Basic2']
+                        let basicRooms = ['Basic' , 'Basic2','Basic3','Basic4','Basic5','Basic6']
                         currentRoom.roomType = this.pickRandomRoom(basicRooms)
                         // Roll out the other basic rooms as more types come in
                     }
