@@ -207,6 +207,41 @@ class Play extends Phaser.Scene {
                     push.setFrame(1)
                 });
             }
+            if (objectLayer.name === 'fire')
+                objectLayer.objects.forEach(obj => {
+                    let fire = this.add.sprite(offsetX + obj.x, offsetY+obj.y, 'objects2').setOrigin(0,1)
+                    fire.setFrame(4)
+            })
+            if (objectLayer.name === 'wizard')
+                objectLayer.objects.forEach(obj => {
+                    let fire = this.add.sprite(offsetX + obj.x, offsetY+obj.y, 'objects2').setOrigin(0,1)
+                    fire.setFrame(0)
+            })
+            if (objectLayer.name === 'frog')
+                objectLayer.objects.forEach(obj => {
+                    let fire = this.add.sprite(offsetX + obj.x, offsetY+obj.y, 'objects').setOrigin(0,1)
+                    fire.setFrame(3)
+            })
+            if (objectLayer.name === 'sigil')
+                objectLayer.objects.forEach(obj => {
+                    let fire = this.add.sprite(offsetX + obj.x, offsetY+obj.y, 'objects2').setOrigin(0,1)
+                    fire.setFrame(5)
+            })
+            if (objectLayer.name === 'orb')
+                objectLayer.objects.forEach(obj => {
+                    let fire = this.add.sprite(offsetX + obj.x, offsetY+obj.y, 'objects').setOrigin(0,1)
+                    fire.setFrame(6)
+            })
+            if (objectLayer.name === 'button')
+                objectLayer.objects.forEach(obj => {
+                    let fire = this.add.sprite(offsetX + obj.x, offsetY+obj.y, 'objects').setOrigin(0,1)
+                    fire.setFrame(13)
+            })
+            if (objectLayer.name === 'chest')
+                objectLayer.objects.forEach(obj => {
+                    let fire = this.add.sprite(offsetX + obj.x, offsetY+obj.y, 'objects2').setOrigin(0,1)
+                    fire.setFrame(2)
+            })
         });
     
         return collisionLayers;

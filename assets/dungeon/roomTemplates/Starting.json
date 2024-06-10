@@ -23,7 +23,7 @@
         {
          "draworder":"topdown",
          "id":4,
-         "name":"Object Layer 1",
+         "name":"fire",
          "objects":[
                 {
                  "gid":20,
@@ -35,7 +35,7 @@
                  "visible":true,
                  "width":20,
                  "x":220,
-                 "y":20.125
+                 "y":12.125
                 }, 
                 {
                  "gid":20,
@@ -47,7 +47,7 @@
                  "visible":true,
                  "width":20,
                  "x":220,
-                 "y":139.875
+                 "y":132
                 }, 
                 {
                  "gid":20,
@@ -59,7 +59,7 @@
                  "visible":true,
                  "width":20,
                  "x":0.0625,
-                 "y":140
+                 "y":132
                 }, 
                 {
                  "gid":20,
@@ -71,7 +71,7 @@
                  "visible":true,
                  "width":20,
                  "x":0,
-                 "y":19.9375
+                 "y":12.125
                 }],
          "opacity":1,
          "type":"objectgroup",
