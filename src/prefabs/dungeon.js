@@ -192,11 +192,8 @@ class Dungeon {
                     } else if (currentRoom.roomNum == Math.floor(this.maxRooms/2) ) {
                         if ( arraysEqual( currentRoom.neighbors, [true, true, false, false] ) ){
                             currentRoom.roomType = 'KeyNS'
-                        } else if ( arraysEqual( currentRoom.neighbors, [false, false, true, true] ) ){
-                            let keyRooms = ['KeyEW', 'KeyEWStrict' ]
-                            currentRoom.roomType = this.pickRandomRoom(keyRooms)
                         } else {
-                            let keyRooms = ['Key' , 'Key2','Key4','Key5','Key5']
+                            let keyRooms = ['Key' , 'Key2','Key4','Key5']
                             currentRoom.roomType = this.pickRandomRoom(keyRooms)
                         }
                     } else if ( Math.random() < 1/20  ) {
@@ -209,14 +206,15 @@ class Dungeon {
                         } else if ( arraysEqual( currentRoom.neighbors, [false, false, true, true ] ) && Math.random() < 1/2){
                             // If it can be a direction specific room, roll a 50/50
                             // 50% chance it is a direction specific room
-                            currentRoom.roomType = 'BasicEW'
+                            let EWRooms = ['BasicEW', 'MazeEW', 'MazeEW2']
+                            currentRoom.roomType = this.pickRandomRoom(EWRooms)
                         } else {
                             if ( Math.random() < 2/3){
                                 let basicRooms = ['Basic' , 'Basic2','Basic3','Basic4','Basic5','Basic6']
                                 currentRoom.roomType = this.pickRandomRoom(basicRooms)
                             } else {
                                 
-                                let mazeRooms = ['Maze' , 'Maze2','Maze4','Maze5','Maze6', 'Maze8']
+                                let mazeRooms = ['Maze' ,'Maze4','Maze5','Maze6', 'Maze8']
                                 currentRoom.roomType = this.pickRandomRoom(mazeRooms)
                             }
                         }

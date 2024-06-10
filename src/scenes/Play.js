@@ -58,6 +58,9 @@ class Play extends Phaser.Scene {
              if ( this.objects[i].type == 'key'){
                 console.log("key collision added")
                 this.physics.add.overlap(this.hero, this.objects[i].sprite,this.handleOverlapKey, null, this);
+             if ( this.objects[i].type == 'chest')
+                this.physics.add.overlap(this.hero, this.objects[i].sprite,this.handleOverlapChest, null, this);
+                console.log("chest collision added")
              }
         }
 
@@ -114,6 +117,11 @@ class Play extends Phaser.Scene {
         this.hasKey = true
         item.disableBody(true, true)
         console.log("keyGot")
+    }
+
+    handleOverlapChest(hero, item) {
+        item.disableBody(true,true)
+        console.log("chestgone")
     }
 
     //Camera bounds handling attribute to Nathan Altice from this repo
@@ -274,6 +282,7 @@ class Play extends Phaser.Scene {
                 objectLayer.objects.forEach(obj => {
                     let chest = this.add.sprite(offsetX + obj.x, offsetY+obj.y, 'objects2').setOrigin(0,1)
                     chest.setFrame(2)
+                    this.objects.push(new interactableObject('chest',  chest))
             })
         });
     
