@@ -4,6 +4,8 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+        this.SCROLLDURATION = 1000
+        this.SCROLLSTYLE = 'Quad'
 
         // character testing 
         // console.log(characterSelect); //works, index 0 includes shirt, hair and skin tone
@@ -84,14 +86,88 @@ class Play extends Phaser.Scene {
 
         document.getElementById('info').innerHTML = '<strong>CharacterFSM.js:</strong> Arrows: move | SPACE: attack | SHIFT: dash attack | F: spin attack | H: hurt (knockback) | D: debug (toggle)';
 
-        this.cameras.main.setBounds(0, 0, roomWidth * dung.width, roomHeight * dung.height);
-        this.cameras.main.startFollow(this.hero, false, 0.5, 0.5);
-        this.cameras.main.setZoom(2);
+        this.cam = this.cameras.main
+        //this.cam.setBounds(dung.startingRoom.x * roomWidth, (dung.height - 1 - dung.startingRoom.y) * roomHeight , dung.width * roomWidth, dung.height * roomHeight)
+        this.cam.setScroll(dung.startingRoom.x * roomWidth, (dung.height - 1 - dung.startingRoom.y) * roomHeight)
+        this.cam.setSize(320,220)
+        this.cam.scaleManager.setGameSize(320,220)
+        this.cam.scaleManager.setZoom(3.2)
         this.physics.world.setBounds(0, 0, roomWidth * dung.width, roomHeight * dung.height);
     }
 
     update() {
+        this.checkCamBounds(this.hero, this.cam)
+
         this.heroFSM.step();
+    }
+
+
+    //Camera bounds handling attribute to Nathan Altice from this repo
+    //https://github.com/nathanaltice/CP-Scrolling-States
+    checkCamBounds(obj, cam) {
+        const tweenProperties = {
+          targets: obj,
+          duration: this.SCROLLDURATION,
+          ease: this.SCROLLSTYLE,
+          onComplete: function () {
+            obj.scrollLock = false  // unlock player
+          },
+        }
+
+        const panProperties = [this.SCROLLDURATION, this.SCROLLSTYLE]
+
+        if(obj.x > cam.width + cam.scrollX) {
+            // PLAYER HITS RIGHT EDGE (SCROLL R->L)
+            // lock player
+            obj.scrollLock = true
+            // tween player
+            this.tweens.add({
+                x: { from: obj.x, to: obj.x + obj.width/2 },
+                ...tweenProperties, // shared properties are spread
+            })
+            // pan camera
+            cam.pan(
+                cam.scrollX + cam.centerX + cam.width, 
+                cam.scrollY + cam.centerY, 
+                ...panProperties    // shared properties are spread
+            )
+        } else if(obj.x - obj.width/2 < cam.scrollX) {
+            // PLAYER HITS LEFT EDGE (SCROLL L->R)
+            obj.scrollLock = true
+            this.tweens.add({
+                x: { from: obj.x, to: obj.x - obj.width/2 },
+                ...tweenProperties, 
+            })
+            cam.pan(
+                cam.scrollX - cam.centerX, 
+                cam.scrollY + cam.centerY, 
+                ...panProperties 
+            )
+        } else if(obj.y > cam.scrollY + cam.height) {
+            // PLAYER HITS BOTTOM EDGE (SCROLL BOTTOM -> TOP)
+            obj.scrollLock = true
+            this.tweens.add({
+                y: { from: obj.y, to: obj.y + obj.height/2 },
+                ...tweenProperties, 
+            })
+            cam.pan(
+                cam.scrollX + cam.centerX, 
+                cam.scrollY + cam.centerY + cam.height, 
+                ...panProperties 
+            )
+        } else if(obj.y - obj.height/2  < cam.scrollY) {
+            // PLAYER HITS TOP EDGE (SCROLL TOP->BOTTOM)
+            obj.scrollLock = true
+            this.tweens.add({
+                y: { from: obj.y, to: obj.y - obj.height},
+                ...tweenProperties, 
+            })
+            cam.pan(
+              cam.scrollX + cam.centerX, 
+              cam.scrollY - cam.centerY, 
+              ...panProperties 
+            )
+        }
     }
 
     makeNewMap(key, x, y) {
