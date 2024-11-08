@@ -163,17 +163,7 @@ class Dungeon {
     printMatrix() {
         console.log("Room count: " + this.roomCount + "\n");
         console.log("Matrix:\n");
-        for (let y = this.height - 1; y >= 0; y--) {
-            let currentRow = "";
-            for (let x = 0; x < this.width; x++) {
-                if (this.matrix[x][y] === null) {
-                    currentRow += "   "; // Empty spaces take up 3 characters
-                } else {
-                    currentRow += String(this.matrix[x][y].roomType).padEnd(3, ' ') + " "; // Populated spaces also take up 3 characters
-                }
-            }
-            console.log("Row " + y.toString() + ": " + currentRow + "\n");
-        }
+        console.table(this.matrix);
     }
     
     
